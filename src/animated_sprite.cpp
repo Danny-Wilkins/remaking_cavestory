@@ -97,15 +97,3 @@ void AnimatedSprite::draw(Graphics& graphics, int x, int y)
 		graphics.blitSurface(spriteSheet, &sourceRect, &destinationRect);
 	}
 }
-
-void AnimatedSprite::animationDone(std::string currentAnimation)
-{
-
-}
-
-void AnimatedSprite::setupAnimations()
-{
-	addAnimation(3, 0, 0, "RunLeft", 16, 16, Vector2(0,0));
-	addAnimation(3, 0, 16, "RunRight", 16, 16, Vector2(0,0));
-}
-

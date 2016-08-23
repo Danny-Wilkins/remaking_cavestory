@@ -2,6 +2,7 @@
 #include "game.h"
 #include "graphics.h"
 #include "input.h"
+#include "player.h"
 
 namespace
 {
@@ -26,9 +27,7 @@ void Game::gameLoop()
 	Input input;
 	SDL_Event event;
 
-	player = AnimatedSprite(graphics, "content/sprites/my_char.png", 0, 0, 16, 16, 100, 100, 100);
-	player.setupAnimations();
-	player.playAnimation("RunRight");
+	player = Player(graphics, 100, 100);
 
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -58,6 +57,19 @@ void Game::gameLoop()
 		{
 			return;
 		}
+		else if(input.keyHeld(SDL_SCANCODE_LEFT) == true)
+		{
+			player.moveLeft();
+		}
+		else if(input.keyHeld(SDL_SCANCODE_RIGHT) == true)
+		{
+			player.moveRight();
+		}
+
+		if(!input.keyHeld(SDL_SCANCODE_LEFT) && !input.keyHeld(SDL_SCANCODE_RIGHT))
+		{
+			player.stopMoving();
+		}
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
 		int ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
@@ -74,7 +86,7 @@ void Game::draw(Graphics& graphics)
 {
 	graphics.clear();
 
-	player.draw(graphics, 100, 100);
+	player.draw(graphics);
 
 	graphics.flip();
 }
