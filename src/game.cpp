@@ -29,6 +29,8 @@ void Game::gameLoop()
 
 	player = Player(graphics, 100, 100);
 
+	level = Level("map1", Vector2(100, 100), graphics);
+
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
 	while(true) //Checks for events such as keypresses
@@ -86,6 +88,8 @@ void Game::draw(Graphics& graphics)
 {
 	graphics.clear();
 
+	level.draw(graphics);
+
 	player.draw(graphics);
 
 	graphics.flip();
@@ -94,4 +98,5 @@ void Game::draw(Graphics& graphics)
 void Game::update(float elapsedTime)
 {
 	player.update(elapsedTime);
+	level.update(elapsedTime);
 }
